@@ -1,0 +1,7 @@
+ALTER TABLE statements
+  DROP COLUMN IF EXISTS user_id;
+
+ALTER TABLE notes
+  DROP COLUMN IF EXISTS user_id;
+
+DROP TABLE IF EXISTS users;
