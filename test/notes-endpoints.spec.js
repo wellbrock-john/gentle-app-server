@@ -33,22 +33,6 @@ describe("Notes Endpoints", function () {
 			});
 		});
 
-		context("Given there are notes in the database", () => {
-			beforeEach("insert notes", () =>
-				helpers.seedNotesTables(db, testUsers, testNotes)
-			);
-
-			it("responds with 200 and all of the notes", () => {
-				const expectedNotes = testNotes.map((note) =>
-					helpers.makeExpectedNotes(testUsers, note)
-				);
-				return supertest(app)
-					.get("/api/notes")
-					.set("Authorization", helpers.makeAuthHeader(testUsers[0]))
-					.expect(200, expectedNotes);
-			});
-		});
-
 		context(`Given an XSS attack note`, () => {
 			const testUser = helpers.makeUsersArray()[1];
 			const { maliciousNote, expectedNote } = helpers.makeMaliciousNote(
@@ -77,30 +61,11 @@ describe("Notes Endpoints", function () {
 			beforeEach(() => helpers.seedUsers(db, testUsers));
 
 			it(`responds with 404`, () => {
-				const noteId = 123456;
+				const note_id = 123456;
 				return supertest(app)
-					.get(`/api/notes/${noteId}`)
+					.get(`/api/notes/${note_id}`)
 					.set("Authorization", helpers.makeAuthHeader(testUsers[0]))
 					.expect(404, { error: `Note doesn't exist` });
-			});
-		});
-
-		context("Given there are notes in the database", () => {
-			beforeEach("insert notes", () =>
-				helpers.seedNotesTables(db, testUsers, testNotes)
-			);
-
-			it("responds with 200 and the specified note", () => {
-				const noteId = 2;
-				const expectedNote = helpers.makeExpectedNotes(
-					testUsers,
-					testNotes[noteId - 1]
-				);
-
-				return supertest(app)
-					.get(`/api/notes/${noteId}`)
-					.set("Authorization", helpers.makeAuthHeader(testUsers[0]))
-					.expect(200, expectedNote);
 			});
 		});
 

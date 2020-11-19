@@ -21,31 +21,15 @@ describe("Statements Endpoints", function () {
 
 	afterEach("cleanup", () => helpers.cleanTables(db));
 
-	describe(`GET /api/statements`, () => {
+	describe(`GET /api/positivestatements`, () => {
 		context(`Given no statements`, () => {
 			beforeEach(() => helpers.seedUsers(db, testUsers));
 
 			it(`responds with 200 and an empty list`, () => {
 				return supertest(app)
-					.get("/api/statements")
+					.get("/api/positivestatements")
 					.set("Authorization", helpers.makeAuthHeader(testUsers[0]))
 					.expect(200, []);
-			});
-		});
-
-		context("Given there are statements in the database", () => {
-			beforeEach("insert statements", () =>
-				helpers.seedStatementsTables(db, testUsers, testStatements)
-			);
-
-			it("responds with 200 and all of the statements", () => {
-				const expectedStatements = testStatements.map((statement) =>
-					helpers.makeExpectedStatements(testUsers, statement)
-				);
-				return supertest(app)
-					.get("/api/statements")
-					.set("Authorization", helpers.makeAuthHeader(testUsers[0]))
-					.expect(200, expectedStatements);
 			});
 		});
 
@@ -62,7 +46,7 @@ describe("Statements Endpoints", function () {
 
 			it("removes XSS attack content", () => {
 				return supertest(app)
-					.get(`/api/statements`)
+					.get(`/api/positivestatements`)
 					.set("Authorization", helpers.makeAuthHeader(testUser))
 					.expect(200)
 					.expect((res) => {
@@ -72,35 +56,16 @@ describe("Statements Endpoints", function () {
 		});
 	});
 
-	describe(`GET /api/statements/:statement_id`, () => {
+	describe(`GET /api/positivestatements/:statement_id`, () => {
 		context(`Given no statements`, () => {
 			beforeEach(() => helpers.seedUsers(db, testUsers));
 
 			it(`responds with 404`, () => {
 				const statementId = 123456;
 				return supertest(app)
-					.get(`/api/statements/${statementId}`)
+					.get(`/api/positivestatements/${statementId}`)
 					.set("Authorization", helpers.makeAuthHeader(testUsers[0]))
 					.expect(404, { error: `Statement doesn't exist` });
-			});
-		});
-
-		context("Given there are statements in the database", () => {
-			beforeEach("insert statements", () =>
-				helpers.seedStatementsTables(db, testUsers, testStatements)
-			);
-
-			it("responds with 200 and the specified statement", () => {
-				const statementId = 2;
-				const expectedStatement = helpers.makeExpectedStatements(
-					testUsers,
-					testStatements[statementId - 1]
-				);
-
-				return supertest(app)
-					.get(`/api/statements/${statementId}`)
-					.set("Authorization", helpers.makeAuthHeader(testUsers[0]))
-					.expect(200, expectedStatement);
 			});
 		});
 
@@ -117,7 +82,7 @@ describe("Statements Endpoints", function () {
 
 			it("removes XSS attack content", () => {
 				return supertest(app)
-					.get(`/api/statements/${maliciousStatement.statement_id}`)
+					.get(`/api/positivestatements/${maliciousStatement.statement_id}`)
 					.set("Authorization", helpers.makeAuthHeader(testUser))
 					.expect(200)
 					.expect((res) => {
