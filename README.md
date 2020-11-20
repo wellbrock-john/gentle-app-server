@@ -1,20 +1,18 @@
 # Gentle
 
-Gentle is an application geared towards providing a welcoming, comfortable, safe and secure platform for users to practice self-love, vent their frustrations or keep their mind clear of clutter through the use of a note storing feature. The goal of building this application was to create a space that would be 'trauma informed', as there are not many applications out there of this ilk.
+## Gentle is an application geared towards providing a welcoming, comfortable, safe and secure platform for users to practice self-love, vent their frustrations or keep their mind clear of clutter through the use of a note storing feature. The goal of building this application was to create a space that would be 'trauma informed', as there are not many applications out there of this ilk.
+
+```
+Demo Account Credentials:
+username: Demo
+password: P@ssword1234
+```
 
 [Live Site](https://gentle-client.vercel.app/)
 
 [Frontend Repo](https://github.com/wellbrock-john/gentle-app-client)
 
-[Backend Repo](https://github.com/wellbrock-john/gentle-app-server)
-
----
-
-## Tech Stack
-
-### React | Node.js | Express | PostgreSQL | SQL | JWT | HTML | CSS
-
----
+## [Backend Repo](https://github.com/wellbrock-john/gentle-app-server)
 
 ## API Documentation
 
@@ -37,37 +35,41 @@ Gentle is an application geared towards providing a welcoming, comfortable, safe
 
 ---
 
-## Screenshots of Frontend Application
+## Screenshots
 
 ### Landing Page
 
 ![Landing Page](https://user-images.githubusercontent.com/68931297/99815443-8d47f200-2b07-11eb-8931-fa25a75bd1ae.png)
 
-### Signup Page
-
-![Signup Page](https://user-images.githubusercontent.com/68931297/99815539-acdf1a80-2b07-11eb-99fc-7bb958e588a8.png)
-
-### Login Page
-
-![Login Page](https://user-images.githubusercontent.com/68931297/99815689-df891300-2b07-11eb-9516-096c4ee38f47.png)
-
-### Positive Statement Page
-
-![Positive Statement Page](https://user-images.githubusercontent.com/68931297/99815810-0cd5c100-2b08-11eb-8f55-bc5cb67c71ac.png)
+```
+When you get to the landing page, there are instructions for signing up, logging into your account or using the Demo account.
+```
 
 ### Home Page
 
 ![Home Page](https://user-images.githubusercontent.com/68931297/99815962-49092180-2b08-11eb-91d9-60c24398df02.png)
 
+```
+The user's home page provides a simplistic layout where they can navigate to different features of the application. Those features include the "Vent" feature, the "Notes" feature and the "Treasures" feature.
+```
+
 ### Vent It Page
 
 ![Vent It Page](https://user-images.githubusercontent.com/68931297/99816108-7655cf80-2b08-11eb-9a8e-8cc02cfbd86b.png)
+
+```
+The vent page allows a user to input text into the textarea provided. By pressing the 'Release' button, the user will be deleting the text. The button triggers a CSS animation and transition that displays the input in red and fades it to a new color while also fading the text into transparency.
+```
 
 ### Note It Page
 
 #### Without Notes
 
 ![Note It Page](https://user-images.githubusercontent.com/68931297/99816236-a1d8ba00-2b08-11eb-87e0-9611a5add34c.png)
+
+```
+To use the notes page a user must input a subject into the subject field and content into the text area. On save, they will see their new note rendered in a list under the text area.
+```
 
 #### With Notes
 
@@ -79,9 +81,19 @@ Gentle is an application geared towards providing a welcoming, comfortable, safe
 
 ![Treasures Page](https://user-images.githubusercontent.com/68931297/99817702-81a9fa80-2b0a-11eb-94ce-8f55981f917e.png)
 
+```
+On initial load of the treasures page, a user will see the above screen. When the user clicks the green icon, a list of their positive statement submissions (submitted on login) will be displayed. Example below.
+```
+
 #### Icon Clicked
 
 ![Treasures Page](https://user-images.githubusercontent.com/68931297/99817843-b027d580-2b0a-11eb-8ad0-b1d1a06fa139.png)
+
+---
+
+## Tech Stack
+
+### React | Node.js | Express | PostgreSQL | SQL | JWT | HTML | CSS
 
 ---
 

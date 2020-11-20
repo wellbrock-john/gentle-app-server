@@ -21,6 +21,9 @@ const NotesService = {
 	deleteNote(db, note_id, user_id) {
 		return db("notes").where({ note_id, user_id }).delete();
 	},
+	deleteDemoNotes(db, user_id) {
+		return db("notes").where({ user_id }).delete();
+	},
 	updateNote(db, note_id, newNoteFields, user_id) {
 		newNoteFields.user_id = user_id;
 		return db("notes").where({ note_id, user_id }).update(newNoteFields);

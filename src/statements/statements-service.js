@@ -21,7 +21,9 @@ const StatementsService = {
 	deleteStatement(db, statement_id, user_id) {
 		return db("statements").where({ statement_id, user_id }).delete();
 	},
-
+	deleteDemoStatements(db, user_id) {
+		return db("statements").where({ user_id }).delete();
+	},
 	serializeStatement(statement) {
 		return {
 			statement_id: statement.statement_id,
