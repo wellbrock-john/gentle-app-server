@@ -9,7 +9,7 @@ function makeUsersArray() {
 			full_name: "Test user 1",
 			password: "password",
 			email: "email1@fakeemail.com",
-			date_created: new Date("2029-01-22T16:28:32.615Z"),
+			date_created: new Date("2020-01-01T00:00:00.000Z"),
 		},
 		{
 			id: 2,
@@ -17,7 +17,7 @@ function makeUsersArray() {
 			full_name: "Test user 2",
 			password: "password",
 			email: "email2@fakeemail.com",
-			date_created: new Date("2029-01-22T16:28:32.615Z"),
+			date_created: new Date("2020-01-01T00:00:00.000Z"),
 		},
 		{
 			id: 3,
@@ -25,7 +25,7 @@ function makeUsersArray() {
 			full_name: "Test user 3",
 			password: "password",
 			email: "email3@fakeemail.com",
-			date_created: new Date("2029-01-22T16:28:32.615Z"),
+			date_created: new Date("2020-01-01T00:00:00.000Z"),
 		},
 		{
 			id: 4,
@@ -33,7 +33,7 @@ function makeUsersArray() {
 			full_name: "Test user 4",
 			password: "password",
 			email: "email4@fakeemail.com",
-			date_created: new Date("2029-01-22T16:28:32.615Z"),
+			date_created: new Date("2020-01-01T00:00:00.000Z"),
 		},
 	];
 }
@@ -43,28 +43,28 @@ function makeStatementsArray(users) {
 		{
 			statement_id: 1,
 			user_id: users[0].id,
-			date_created: new Date("2029-01-22T16:28:32.615Z"),
+			date_created: new Date("2020-01-01T00:00:00.000Z"),
 			content:
 				"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?",
 		},
 		{
 			statement_id: 2,
 			user_id: users[1].id,
-			date_created: new Date("2029-01-22T16:28:32.615Z"),
+			date_created: new Date("2020-01-01T00:00:00.000Z"),
 			content:
 				"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?",
 		},
 		{
 			statement_id: 3,
 			user_id: users[2].id,
-			date_created: new Date("2029-01-22T16:28:32.615Z"),
+			date_created: new Date("2020-01-01T00:00:00.000Z"),
 			content:
 				"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?",
 		},
 		{
 			statement_id: 4,
 			user_id: users[3].id,
-			date_created: new Date("2029-01-22T16:28:32.615Z"),
+			date_created: new Date("2020-01-01T00:00:00.000Z"),
 			content:
 				"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?",
 		},
@@ -78,28 +78,28 @@ function makeNotesArray(users) {
 			subject: "First test note!",
 			content: "Here is some content",
 			user_id: users[0].id,
-			date_created: new Date("2029-01-22T16:28:32.615Z"),
+			date_created: new Date("2020-01-01T00:00:00.000Z"),
 		},
 		{
 			note_id: 2,
 			subject: "Second test note!",
 			content: "Here is some content",
 			user_id: users[1].id,
-			date_created: new Date("2029-01-22T16:28:32.615Z"),
+			date_created: new Date("2020-01-01T00:00:00.000Z"),
 		},
 		{
 			note_id: 3,
 			subject: "Third test note!",
 			content: "Here is some content",
 			user_id: users[2].id,
-			date_created: new Date("2029-01-22T16:28:32.615Z"),
+			date_created: new Date("2020-01-01T00:00:00.000Z"),
 		},
 		{
 			note_id: 4,
 			subject: "Fourth test note!",
 			content: "Here is some content",
 			user_id: users[3].id,
-			date_created: new Date("2029-01-22T16:28:32.615Z"),
+			date_created: new Date("2020-01-01T00:00:00.000Z"),
 		},
 	];
 }
@@ -110,7 +110,7 @@ function makeExpectedStatements(users, statements) {
 	return {
 		statement_id: statements.statement_id,
 		content: statements.content,
-		date_created: statements.date_created.toISOString(),
+		date_created: new Date(statements.date_created.toISOString()),
 		user_id: statements.user_id,
 	};
 }
@@ -121,7 +121,7 @@ function makeExpectedNotes(users, notes) {
 		note_id: notes.note_id,
 		subject: notes.subject,
 		content: notes.content,
-		date_created: notes.date_created.toISOString(),
+		date_created: new Date(notes.date_created.toISOString()),
 		user_id: notes.user_id,
 	};
 }
@@ -167,7 +167,7 @@ function makeMaliciousNote(user) {
 function makeFixtures() {
 	const testUsers = makeUsersArray();
 	const testStatements = makeStatementsArray(testUsers);
-	const testNotes = makeNotesArray(testUsers, testStatements);
+	const testNotes = makeNotesArray(testUsers);
 	return { testUsers, testStatements, testNotes };
 }
 

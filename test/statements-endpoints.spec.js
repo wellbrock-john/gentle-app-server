@@ -33,6 +33,24 @@ describe("Statements Endpoints", function () {
 			});
 		});
 
+		context(`Given there are positivestatements`, () => {
+			beforeEach(() =>
+				helpers.seedStatementsTables(db, testUsers, testStatements)
+			);
+
+			it(`responds with 200 and an array of positivestatements`, () => {
+				const testUser = helpers.makeUsersArray()[0];
+
+				return supertest(app)
+					.get("/api/positivestatements")
+					.set("Authorization", helpers.makeAuthHeader(testUser))
+					.expect(200)
+					.expect((res) => {
+						expect(res.body[0].content);
+					});
+			});
+		});
+
 		context(`Given an XSS attack statement`, () => {
 			const testUser = helpers.makeUsersArray()[1];
 			const {
@@ -66,6 +84,21 @@ describe("Statements Endpoints", function () {
 					.get(`/api/positivestatements/${statementId}`)
 					.set("Authorization", helpers.makeAuthHeader(testUsers[0]))
 					.expect(404, { error: `Statement doesn't exist` });
+			});
+		});
+
+		context(`Given there are positivestatements`, () => {
+			beforeEach(() =>
+				helpers.seedStatementsTables(db, testUsers, testStatements)
+			);
+
+			it(`responds with 200 a statement by ID`, () => {
+				const testUser = helpers.makeUsersArray()[0];
+				const statement_id = 1;
+				return supertest(app)
+					.get(`/api/positivestatements/${statement_id}`)
+					.set("Authorization", helpers.makeAuthHeader(testUser))
+					.expect(200);
 			});
 		});
 

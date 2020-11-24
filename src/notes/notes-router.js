@@ -42,33 +42,6 @@ notesRouter
 	.get((req, res) => {
 		res.json(NotesService.serializeNote(res.note));
 	})
-	.patch(jsonBodyParser, (req, res, next) => {
-		const { subject, content } = req.body;
-		if (subject == null || content == null) {
-			const err = createError(404, "Must contain subject and content");
-			return next(err);
-		}
-
-		const newNoteFields = {};
-		if (subject) newNoteFields.subject = subject;
-		if (content) newNoteFields.content = content;
-
-		NotesService.updateNote(
-			req.app.get("db"),
-			req.params.note_id,
-			newNoteFields,
-			req.user.id
-		)
-			.then((note) => {
-				if (note) {
-					res.status(204).end();
-				} else {
-					const err = createError(404, "Not Found");
-					return next(err);
-				}
-			})
-			.catch(next);
-	})
 	.delete((req, res, next) => {
 		const { note_id } = req.params;
 		NotesService.deleteNote(req.app.get("db"), note_id, req.user.id)

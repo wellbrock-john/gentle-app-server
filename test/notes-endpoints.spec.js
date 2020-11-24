@@ -1,6 +1,8 @@
 const knex = require("knex");
 const app = require("../src/app");
 const helpers = require("./test-helpers");
+const supertest = require("supertest");
+const { expect } = require("chai");
 
 describe("Notes Endpoints", function () {
 	let db;
@@ -30,6 +32,23 @@ describe("Notes Endpoints", function () {
 					.get("/api/notes")
 					.set("Authorization", helpers.makeAuthHeader(testUsers[0]))
 					.expect(200, []);
+			});
+		});
+
+		context(`Given there are notes`, () => {
+			beforeEach(() => helpers.seedNotesTables(db, testUsers, testNotes));
+
+			it(`responds with 200 and an array of notes`, () => {
+				const testUser = helpers.makeUsersArray()[0];
+
+				return supertest(app)
+					.get("/api/notes")
+					.set("Authorization", helpers.makeAuthHeader(testUser))
+					.expect(200)
+					.expect((res) => {
+						expect(res.body[0].subject);
+						expect(res.body[0].content);
+					});
 			});
 		});
 
@@ -69,6 +88,19 @@ describe("Notes Endpoints", function () {
 			});
 		});
 
+		context(`Given there are notes`, () => {
+			beforeEach(() => helpers.seedNotesTables(db, testUsers, testNotes));
+
+			it(`responds with 200 a note by ID`, () => {
+				const testUser = helpers.makeUsersArray()[0];
+				const note_id = 1;
+				return supertest(app)
+					.get(`/api/notes/${note_id}`)
+					.set("Authorization", helpers.makeAuthHeader(testUser))
+					.expect(200);
+			});
+		});
+
 		context(`Given an XSS attack note`, () => {
 			const testUser = helpers.makeUsersArray()[1];
 			const { maliciousNote, expectedNote } = helpers.makeMaliciousNote(
@@ -88,6 +120,34 @@ describe("Notes Endpoints", function () {
 						expect(res.body.subject).to.eql(expectedNote.subject);
 						expect(res.body.content).to.eql(expectedNote.content);
 					});
+			});
+		});
+	});
+
+	describe(`DELETE /api/notes/:note_id`, () => {
+		context(`Given no notes`, () => {
+			beforeEach(() => helpers.seedUsers(db, testUsers));
+
+			it(`responds with 404 when note does not exist`, () => {
+				return supertest(app)
+					.delete(`/api/notes/123456`)
+					.set("Authorization", helpers.makeAuthHeader(testUsers[0]))
+					.expect(404, {
+						error: `Note doesn't exist`,
+					});
+			});
+		});
+
+		context(`Given there are notes in the database`, () => {
+			beforeEach(() => helpers.seedNotesTables(db, testUsers, testNotes));
+
+			it(`removes the note by ID from the database`, () => {
+				const idToRemove = 1;
+				const testUser = helpers.makeUsersArray()[0];
+				return supertest(app)
+					.delete(`/api/notes/${idToRemove}`)
+					.set("Authorization", helpers.makeAuthHeader(testUser))
+					.expect({});
 			});
 		});
 	});

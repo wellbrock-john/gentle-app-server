@@ -15,8 +15,6 @@ usersRouter.post("/", jsonBodyParser, (req, res, next) => {
 				error: `Missing '${field}' in request body`,
 			});
 
-	// TODO: check username doesn't start with spaces
-
 	const passwordError = UsersService.validatePassword(password);
 
 	if (passwordError) return res.status(400).json({ error: passwordError });
